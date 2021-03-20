@@ -25,6 +25,16 @@ module.exports = {
     "rules": {
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "warn",
-        "react/prop-types": "off"
-    }
+        "react/prop-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+    },
+    "overrides": [
+        {
+            // enable the rule specifically for TypeScript files
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "@typescript-eslint/explicit-module-boundary-types": "off"
+            }
+        }
+    ]
 };
