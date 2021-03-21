@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
 
+export type ApiData<T> = {
+  data: T
+  isLoading: boolean
+  isError: boolean
+}
+
 export const useDataApiHook = <T>(initialData: T, getData: () => Promise<T>) => {
   const [data, setData] = useState<T>(initialData)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,5 +25,7 @@ export const useDataApiHook = <T>(initialData: T, getData: () => Promise<T>) => 
     }
     fetchData()
   }, [])
-  return [{ data, isLoading, isError }]
+
+  const apiData: ApiData<T> = { data, isLoading, isError }
+  return [apiData]
 }
