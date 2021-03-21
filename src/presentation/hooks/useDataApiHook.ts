@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { fetchWithResasApiKey } from '../../infrastructure/fetchWithResasApiKey'
 
-export const useDataApiHook = () => {
-  const [data, setData] = useState('')
+export const useDataApiHook = <T>(initialData: T, getData: () => Promise<T>) => {
+  const [data, setData] = useState<T>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -11,7 +10,7 @@ export const useDataApiHook = () => {
       setIsError(false)
       setIsLoading(true)
       try {
-        const result = await fetchWithResasApiKey()
+        const result = await getData()
         setData(result)
       } catch (error) {
         setIsError(true)
