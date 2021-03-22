@@ -5,7 +5,7 @@ import { css } from '@emotion/react'
 type Props = {
   itemName: string
   isChecked: boolean
-  handleChangeCheckbox: () => void
+  handleChangeCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 export const CheckboxListItem = (props: Props) => {
   return (
