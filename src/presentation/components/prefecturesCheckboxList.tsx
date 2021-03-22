@@ -7,11 +7,11 @@ import { PrefecturesPopulation } from '../../domain/prefecturesPopulation'
 type Props = {
   selectedPrefCodeList: number[]
   prefecturesData: ApiData<Prefecture[]>
-  PrefecturesPopulationData: ApiDataWithPrefCode<PrefecturesPopulation>
+  prefecturesPopulationData: ApiDataWithPrefCode<PrefecturesPopulation>
   handleChangeCheckbox: (prefCode: number) => void
 }
 export const PrefecturesCheckboxList = (props: Props) => {
-  const { selectedPrefCodeList, prefecturesData, handleChangeCheckbox } = props
+  const { selectedPrefCodeList, prefecturesData, prefecturesPopulationData, handleChangeCheckbox } = props
   return (
     <>
       {prefecturesData.isLoading && <p>ロード中</p>}
@@ -24,6 +24,7 @@ export const PrefecturesCheckboxList = (props: Props) => {
                 {...{
                   itemName: prefecture.prefName,
                   isChecked: new Set(selectedPrefCodeList).has(prefecture.prefCode),
+                  isDisabled: prefecturesPopulationData.isLoading,
                   handleChangeCheckbox: () => handleChangeCheckbox(prefecture.prefCode),
                 }}
               />

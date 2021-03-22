@@ -11,7 +11,7 @@ import { fetchPrefecturesPopulation } from '../../../infrastructure/fetchPrefect
 
 const PopulationGraphPage: React.FunctionComponent = () => {
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)
-  const [PrefecturesPopulationData, setCurrentPrefCode] = useDataApiWithPrefCodeHook<PrefecturesPopulation>(
+  const [prefecturesPopulationData, setCurrentPrefCode] = useDataApiWithPrefCodeHook<PrefecturesPopulation>(
     [],
     fetchPrefecturesPopulation
   )
@@ -35,7 +35,7 @@ const PopulationGraphPage: React.FunctionComponent = () => {
             {...{
               selectedPrefCodeList,
               prefecturesData,
-              PrefecturesPopulationData,
+              prefecturesPopulationData,
               handleChangeCheckbox,
             }}
           />
