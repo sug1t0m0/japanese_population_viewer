@@ -2,12 +2,13 @@
 import React, { useState } from 'react'
 import DesktopTemplate from '../../templates/desktop'
 import { css } from '@emotion/react'
-import { useDataApiHook, useDataApiWithPrefCodeHook } from '../../hooks/useDataApiHook'
+import { useDataApiHook } from '../../hooks/useDataApiHook'
 import { Prefecture } from '../../../domain/prefecture'
 import { fetchPrefectures } from '../../../infrastructure/fetchPrefectures'
 import { PrefecturesCheckboxList } from '../../components/prefecturesCheckboxList'
 import { PrefecturesPopulation } from '../../../domain/prefecturesPopulation'
 import { fetchPrefecturesPopulation } from '../../../infrastructure/fetchPrefecturesPopulation'
+import { useDataApiWithPrefCodeHook } from '../../hooks/useDataApiWithPrefCodeHook'
 
 const PopulationGraphPage: React.FunctionComponent = () => {
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)

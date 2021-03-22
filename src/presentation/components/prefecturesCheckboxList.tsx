@@ -1,8 +1,9 @@
 import React from 'react'
 import { Prefecture } from '../../domain/prefecture'
-import { ApiData, ApiDataWithPrefCode } from '../hooks/useDataApiHook'
+import { ApiData } from '../hooks/useDataApiHook'
 import { CheckboxListItem } from './checkboxListItem'
 import { PrefecturesPopulation } from '../../domain/prefecturesPopulation'
+import { ApiDataWithPrefCode } from '../hooks/useDataApiWithPrefCodeHook'
 
 type Props = {
   selectedPrefCodeList: number[]
