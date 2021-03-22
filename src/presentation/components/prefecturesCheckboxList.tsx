@@ -1,13 +1,18 @@
 import React from 'react'
 import { Prefecture } from '../../domain/prefecture'
 import { ApiData } from '../hooks/useDataApiHook'
-import { CheckboxListItem } from './CheckboxListItem'
+import { CheckboxListItem } from './checkboxListItem'
+import { PrefecturesPopulation } from '../../domain/prefecturesPopulation'
+import { ApiDataWithPrefCode } from '../hooks/useDataApiWithPrefCodeHook'
 
 type Props = {
+  selectedPrefCodeList: number[]
   prefecturesData: ApiData<Prefecture[]>
+  prefecturesPopulationData: ApiDataWithPrefCode<PrefecturesPopulation>
+  handleChangeCheckbox: (prefCode: number) => void
 }
 export const PrefecturesCheckboxList = (props: Props) => {
-  const { prefecturesData } = props
+  const { selectedPrefCodeList, prefecturesData, prefecturesPopulationData, handleChangeCheckbox } = props
   return (
     <>
       {prefecturesData.isLoading && <p>ロード中</p>}
@@ -19,10 +24,9 @@ export const PrefecturesCheckboxList = (props: Props) => {
                 key={i}
                 {...{
                   itemName: prefecture.prefName,
-                  isChecked: false,
-                  handleChangeCheckbox: () => {
-                    console.log('toggled')
-                  },
+                  isChecked: new Set(selectedPrefCodeList).has(prefecture.prefCode),
+                  isDisabled: prefecturesPopulationData.isLoading,
+                  handleChangeCheckbox: () => handleChangeCheckbox(prefecture.prefCode),
                 }}
               />
             )
