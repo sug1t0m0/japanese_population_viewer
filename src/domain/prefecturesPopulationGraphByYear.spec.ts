@@ -1,4 +1,8 @@
-import { convertFromPrefecturesPopulationData, genYearsSortedInAsc } from './prefecturesPopulationGraphByYear'
+import {
+  convertFromPrefecturesPopulationData,
+  genYearsSortedInAsc,
+  convertPrefCodeIntoPrefName,
+} from './prefecturesPopulationGraphByYear'
 
 const samplePrefecturesPopulationData = {
   data: [
@@ -44,7 +48,7 @@ const samplePrefecturesPopulationData = {
 const samplePrefecturesData = {
   data: [
     {
-      prefCode: 1,
+      prefCode: 0,
       prefName: '新潟県',
     },
     {
@@ -126,6 +130,19 @@ describe('genSortedYears', () => {
         ],
       }
       expect(genYearsSortedInAsc(prefecturesPopulationData)).toEqual([1992, 2020, 2025, 2030])
+    })
+  })
+})
+
+describe('convertPrefCodeIntoPrefName', () => {
+  describe('prevCode が PrefecturesData に入っていること', () => {
+    it('都道府県名が返ってくること', () => {
+      expect(convertPrefCodeIntoPrefName(1, samplePrefecturesData)).toEqual('山形県')
+    })
+  })
+  describe('prevCode が PrefecturesData に入っていない', () => {
+    it('空文字列が返ってこないこと', () => {
+      expect(convertPrefCodeIntoPrefName(3, samplePrefecturesData)).toEqual('')
     })
   })
 })

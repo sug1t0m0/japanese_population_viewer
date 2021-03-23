@@ -3,8 +3,8 @@ import { PrefecturesData } from './prefecture'
 
 export type DataForPrefecturePopulationGraph = {
   year: number
-  [prefName: string]: number
-}[]
+  [prefName: string]: number | null
+}
 
 export function convertFromPrefecturesPopulationData({
   prefecturesPopulationData,
@@ -14,7 +14,7 @@ export function convertFromPrefecturesPopulationData({
   prefecturesPopulationData: PrefecturesPopulationData
   prefecturesData: PrefecturesData
   selectedPrefCodeList: number[]
-}): DataForPrefecturePopulationGraph {
+}): DataForPrefecturePopulationGraph[] {
   const selectedPrefCodeSet = new Set(selectedPrefCodeList)
   const selectedPrefecturesPopulationData = prefecturesPopulationData.data.filter((d) =>
     selectedPrefCodeSet.has(d.prefCode)
@@ -34,4 +34,9 @@ export function genYearsSortedInAsc(prefecturesPopulationData: PrefecturesPopula
 
   const sortedYears = Array.from(new Set(allYears).values()).sort((a, b) => a - b)
   return sortedYears
+}
+
+export function convertPrefCodeIntoPrefName(prefCode: number, prefecturesData: PrefecturesData): string {
+  const targetData = prefecturesData.data.find((d) => d.prefCode === prefCode)
+  return targetData ? targetData.prefName : ''
 }
