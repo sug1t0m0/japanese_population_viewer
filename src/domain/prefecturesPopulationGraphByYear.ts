@@ -14,7 +14,7 @@ export function convertFromPrefecturesPopulationData({
   prefecturesPopulationData: PrefecturesPopulationData
   prefecturesData: PrefecturesData
   selectedPrefCodeList: number[]
-}): DataForPrefecturePopulationGraph[] {
+}): [DataForPrefecturePopulationGraph[], string[]] {
   const selectedPrefCodeSet = new Set(selectedPrefCodeList)
   const selectedPrefecturesPopulationData = {
     // 処理の都合に合わせて型を作りたくなかったので、PrefecturesPopulationData として整合性を保つために追加
@@ -23,7 +23,7 @@ export function convertFromPrefecturesPopulationData({
   }
   const years = genYearsSortedInAsc(selectedPrefecturesPopulationData)
 
-  return years.map((year) => {
+  const dataListForPrefecturePopulationGraph = years.map((year) => {
     return selectedPrefecturesPopulationData.data.reduce(
       (dataForPrefecturePopulationGraph: DataForPrefecturePopulationGraph, d) => {
         const targetPopulation = d.populations.find((population) => population.year === year)
@@ -36,6 +36,12 @@ export function convertFromPrefecturesPopulationData({
       { year }
     )
   })
+
+  const selectedPrefNames = selectedPrefCodeList.map((selectedPrefCode) =>
+    convertPrefCodeIntoPrefName(selectedPrefCode, prefecturesData)
+  )
+
+  return [dataListForPrefecturePopulationGraph, selectedPrefNames]
 }
 
 export function genYearsSortedInAsc(prefecturesPopulationData: PrefecturesPopulationData) {

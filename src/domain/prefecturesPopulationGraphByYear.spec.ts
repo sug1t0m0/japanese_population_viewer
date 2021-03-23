@@ -70,37 +70,39 @@ const sampleParams = {
 
 describe('convertFromPrefecturesPopulationData', () => {
   describe('グラフ表示用のデータが生成できる場合', () => {
-    describe('selectedPrefCodeList が空配列の場合', () => {
-      it('グラフ表示用に整形されたデータが得られること', () => {
+    describe('selectedPrefCodeList の要素数 > 0 の場合', () => {
+      it('グラフ表示用に整形されたデータと県名の配列が得られること', () => {
         const expectDataForPrefecturePopulationGraph = [
-          {
-            year: 2020,
-            山形県: 5,
-            新潟県: 3,
-          },
-          {
-            year: 2025,
-            山形県: 4,
-            新潟県: 4,
-          },
-          {
-            year: 2030,
-            山形県: 3,
-            新潟県: 5,
-          },
+          [
+            {
+              year: 2020,
+              山形県: 5,
+              新潟県: 3,
+            },
+            {
+              year: 2025,
+              山形県: 4,
+              新潟県: 4,
+            },
+            {
+              year: 2030,
+              山形県: 3,
+              新潟県: 5,
+            },
+          ],
+          ['新潟県', '山形県'],
         ]
         expect(convertFromPrefecturesPopulationData(sampleParams)).toEqual(expectDataForPrefecturePopulationGraph)
       })
     })
-  })
-  describe('グラフ表示用のデータが生成できない場合', () => {
+
     describe('selectedPrefCodeList が空配列の場合', () => {
-      it('空配列が帰ること', () => {
+      it('空配列を要素とする、要素数2の配列が得られること', () => {
         const params = {
           ...sampleParams,
           selectedPrefCodeList: [],
         }
-        expect(convertFromPrefecturesPopulationData(params)).toEqual([])
+        expect(convertFromPrefecturesPopulationData(params)).toEqual([[], []])
       })
     })
   })
