@@ -16,12 +16,26 @@ export function convertFromPrefecturesPopulationData({
   selectedPrefCodeList: number[]
 }): DataForPrefecturePopulationGraph[] {
   const selectedPrefCodeSet = new Set(selectedPrefCodeList)
-  const selectedPrefecturesPopulationData = prefecturesPopulationData.data.filter((d) =>
-    selectedPrefCodeSet.has(d.prefCode)
-  )
-  // TODO 実装途中
-  console.log(prefecturesData, selectedPrefecturesPopulationData)
-  return []
+  const selectedPrefecturesPopulationData = {
+    // 処理の都合に合わせて型を作りたくなかったので、PrefecturesPopulationData として整合性を保つために追加
+    ...prefecturesPopulationData,
+    data: prefecturesPopulationData.data.filter((d) => selectedPrefCodeSet.has(d.prefCode)),
+  }
+  const years = genYearsSortedInAsc(selectedPrefecturesPopulationData)
+
+  return years.map((year) => {
+    return selectedPrefecturesPopulationData.data.reduce(
+      (dataForPrefecturePopulationGraph: DataForPrefecturePopulationGraph, d) => {
+        const targetPopulation = d.populations.find((population) => population.year === year)
+        const value = targetPopulation ? targetPopulation.value : null
+        // TODO ここで毎度 convertPrefCodeIntoPrefName() が呼ばれてしまうのは良くない
+        return Object.assign(dataForPrefecturePopulationGraph, {
+          [convertPrefCodeIntoPrefName(d.prefCode, prefecturesData)]: value,
+        })
+      },
+      { year }
+    )
+  })
 }
 
 export function genYearsSortedInAsc(prefecturesPopulationData: PrefecturesPopulationData) {
