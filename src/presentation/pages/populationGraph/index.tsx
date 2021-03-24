@@ -9,6 +9,7 @@ import { PrefecturesCheckboxList } from '../../components/prefecturesCheckboxLis
 import { PrefecturesPopulation } from '../../../domain/prefecturesPopulation'
 import { fetchPrefecturesPopulation } from '../../../infrastructure/fetchPrefecturesPopulation'
 import { useDataApiWithPrefCodeHook } from '../../hooks/useDataApiWithPrefCodeHook'
+import { PrefecturesPopulationGraphByYear } from '../../components/prefecturesPopulationGraphByYear'
 
 const PopulationGraphPage: React.FunctionComponent = () => {
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)
@@ -41,7 +42,15 @@ const PopulationGraphPage: React.FunctionComponent = () => {
             }}
           />
         </div>
-        <div css={rightContainerStyle}>チェックボックスリストの状態に応じたグラフ</div>
+        <div css={rightContainerStyle}>
+          <PrefecturesPopulationGraphByYear
+            {...{
+              selectedPrefCodeList,
+              prefecturesData,
+              prefecturesPopulationData,
+            }}
+          />
+        </div>
       </div>
     </DesktopTemplate>
   )

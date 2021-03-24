@@ -1,14 +1,12 @@
 import React from 'react'
-import { Prefecture } from '../../domain/prefecture'
-import { ApiData } from '../hooks/useDataApiHook'
+import { PrefecturesData } from '../../domain/prefecture'
 import { CheckboxListItem } from './checkboxListItem'
-import { PrefecturesPopulation } from '../../domain/prefecturesPopulation'
-import { ApiDataWithPrefCode } from '../hooks/useDataApiWithPrefCodeHook'
+import { PrefecturesPopulationData } from '../../domain/prefecturesPopulation'
 
 type Props = {
   selectedPrefCodeList: number[]
-  prefecturesData: ApiData<Prefecture[]>
-  prefecturesPopulationData: ApiDataWithPrefCode<PrefecturesPopulation>
+  prefecturesData: PrefecturesData
+  prefecturesPopulationData: PrefecturesPopulationData
   handleChangeCheckbox: (prefCode: number) => void
 }
 export const PrefecturesCheckboxList = (props: Props) => {
