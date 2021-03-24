@@ -2,7 +2,7 @@ import React from 'react'
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { PrefecturesData } from '../../domain/prefecture'
 import { PrefecturesPopulationData } from '../../domain/prefecturesPopulation'
-import { convertFromPrefecturesPopulationData } from '../../domain/prefecturesPopulationGraphByYear'
+import { genDataForPrefecturePopulationGraph } from '../../domain/prefecturesPopulationGraphByYear'
 import { defaultProps, UiStackWrapper } from './uiStackWrapper'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export const PrefecturesPopulationGraphByYear = (props: Props) => {
-  const [data, selectedPrefNames] = convertFromPrefecturesPopulationData(props)
+  const [data, selectedPrefNames] = genDataForPrefecturePopulationGraph(props)
 
   return (
     <UiStackWrapper

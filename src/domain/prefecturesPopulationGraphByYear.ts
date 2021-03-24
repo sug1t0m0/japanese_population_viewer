@@ -5,7 +5,7 @@ export type DataForPrefecturePopulationGraph = {
   [prefName: string]: number | null
 }
 
-export function convertFromPrefecturesPopulationData({
+export function genDataForPrefecturePopulationGraph({
   prefecturesPopulationData,
   selectedPrefCodeList,
 }: {
