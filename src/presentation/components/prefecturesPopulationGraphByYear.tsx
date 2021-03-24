@@ -14,8 +14,9 @@ export const PrefecturesPopulationGraphByYear = (props: Props) => {
   const [data, selectedPrefNames] = convertFromPrefecturesPopulationData(props)
   return (
     <>
-      {data.length === 0 && <p>人口を表示する県を選択してください</p>}
-      {data.length > 0 && (
+      {props.selectedPrefCodeList.length === 0 && <p>人口を表示する県を選択してください</p>}
+      {props.prefecturesPopulationData.isLoading && <p>ロード中</p>}
+      {props.selectedPrefCodeList.length > 0 && !props.prefecturesPopulationData.isLoading && (
         <LineChart width={730} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
