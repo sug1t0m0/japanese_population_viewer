@@ -12,7 +12,6 @@ import { useDataApiWithPrefInfoHook } from '../../hooks/useDataApiWithPrefInfoHo
 import { PrefecturesPopulationGraphByYear } from '../../components/prefecturesPopulationGraphByYear'
 
 const PopulationGraphPage: React.FunctionComponent = () => {
-  // TODO グラフコンポーネントが増えるようなら, useContext で各コンポーネントに配りたい
   const LINE_GRAPH_COLORS = ['#C55859', '#F08C57', '#F2DA48', '#48C176', '#4C9CD7', '#8A69B6']
 
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)

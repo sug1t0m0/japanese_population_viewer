@@ -16,7 +16,6 @@ type PrefecturesPopulationResponse = {
 }
 
 export async function fetchPrefecturesPopulation(prefCode: number): Promise<PrefecturesPopulation> {
-  // TODO url文字列の作成部分を外に逃がす
   return await fetchWithResasApiKey(
     `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${'' + prefCode}`
   ).then((result: PrefecturesPopulationResponse) => extractPrefecturesPopulation(result))
