@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react'
 
-export type ApiDataWithPrefCode<T> = {
-  data: DataWithPrefCode<T>[]
+import { convertPrefCodeIntoPrefName, PrefecturesData } from '../../domain/prefecture'
+
+export type ApiDataWithPrefInfo<T> = {
+  data: DataWithPrefInfo<T>[]
   isLoading: boolean
   isError: boolean
 }
 
-type DataWithPrefCode<T> = T & {
+type DataWithPrefInfo<T> = T & {
   prefCode: number
+  prefName: string
 }
 
-export const useDataApiWithPrefCodeHook = <T>(
-  initialData: DataWithPrefCode<T>[],
-  getData: (prefCode: number) => Promise<T>
-): [ApiDataWithPrefCode<T>, (currentPrefCode: number) => void] => {
-  const [data, setData] = useState<DataWithPrefCode<T>[]>(initialData)
+export const useDataApiWithPrefInfoHook = <T>(
+  initialData: DataWithPrefInfo<T>[],
+  getData: (prefCode: number) => Promise<T>,
+  prefecturesData: PrefecturesData
+): [ApiDataWithPrefInfo<T>, (currentPrefCode: number) => void] => {
+  const [data, setData] = useState<DataWithPrefInfo<T>[]>(initialData)
   const [currentPrefCode, setCurrentPrefCode] = useState<number>(NaN)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
@@ -28,6 +32,7 @@ export const useDataApiWithPrefCodeHook = <T>(
         const nextData = data.concat({
           ...result,
           prefCode: currentPrefCode,
+          prefName: convertPrefCodeIntoPrefName(currentPrefCode, prefecturesData),
         })
         setData(nextData)
       } catch (error) {
@@ -41,7 +46,7 @@ export const useDataApiWithPrefCodeHook = <T>(
     }
   }, [currentPrefCode])
 
-  const apiData: ApiDataWithPrefCode<T> = { data, isLoading, isError }
+  const apiData: ApiDataWithPrefInfo<T> = { data, isLoading, isError }
 
   return [apiData, setCurrentPrefCode]
 }

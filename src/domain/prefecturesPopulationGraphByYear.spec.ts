@@ -1,59 +1,42 @@
-import {
-  convertFromPrefecturesPopulationData,
-  genYearsSortedInAsc,
-  convertPrefCodeIntoPrefName,
-} from './prefecturesPopulationGraphByYear'
+import { genDataForPrefecturePopulationGraph, genYearsSortedInAsc } from './prefecturesPopulationGraphByYear'
 
 const samplePrefecturesPopulationData = {
   data: [
     {
       prefCode: 0,
-      populations: [
-        {
-          year: 2020,
-          value: 3,
-        },
-        {
-          year: 2025,
-          value: 4,
-        },
-        {
-          year: 2030,
-          value: 5,
-        },
-      ],
-    },
-    {
-      prefCode: 1,
-      populations: [
-        {
-          year: 2020,
-          value: 5,
-        },
-        {
-          year: 2025,
-          value: 4,
-        },
-        {
-          year: 2030,
-          value: 3,
-        },
-      ],
-    },
-  ],
-  isLoading: false,
-  isError: false,
-}
-
-const samplePrefecturesData = {
-  data: [
-    {
-      prefCode: 0,
       prefName: '新潟県',
+      populations: [
+        {
+          year: 2020,
+          value: 3,
+        },
+        {
+          year: 2025,
+          value: 4,
+        },
+        {
+          year: 2030,
+          value: 5,
+        },
+      ],
     },
     {
       prefCode: 1,
       prefName: '山形県',
+      populations: [
+        {
+          year: 2020,
+          value: 5,
+        },
+        {
+          year: 2025,
+          value: 4,
+        },
+        {
+          year: 2030,
+          value: 3,
+        },
+      ],
     },
   ],
   isLoading: false,
@@ -64,11 +47,10 @@ const sampleSelectedPrefCodeList = [0, 1]
 
 const sampleParams = {
   prefecturesPopulationData: samplePrefecturesPopulationData,
-  prefecturesData: samplePrefecturesData,
   selectedPrefCodeList: sampleSelectedPrefCodeList,
 }
 
-describe('convertFromPrefecturesPopulationData', () => {
+describe('genDataForPrefecturePopulationGraph', () => {
   describe('グラフ表示用のデータが生成できる場合', () => {
     describe('selectedPrefCodeList の要素数 > 0 の場合', () => {
       it('グラフ表示用に整形されたデータと県名の配列が得られること', () => {
@@ -92,7 +74,7 @@ describe('convertFromPrefecturesPopulationData', () => {
           ],
           ['新潟県', '山形県'],
         ]
-        expect(convertFromPrefecturesPopulationData(sampleParams)).toEqual(expectDataForPrefecturePopulationGraph)
+        expect(genDataForPrefecturePopulationGraph(sampleParams)).toEqual(expectDataForPrefecturePopulationGraph)
       })
     })
 
@@ -102,7 +84,7 @@ describe('convertFromPrefecturesPopulationData', () => {
           ...sampleParams,
           selectedPrefCodeList: [],
         }
-        expect(convertFromPrefecturesPopulationData(params)).toEqual([[], []])
+        expect(genDataForPrefecturePopulationGraph(params)).toEqual([[], []])
       })
     })
   })
@@ -121,6 +103,7 @@ describe('genSortedYears', () => {
         data: [
           {
             prefCode: 0,
+            prefName: '新潟県',
             populations: [
               {
                 year: 1992,
@@ -137,7 +120,8 @@ describe('genSortedYears', () => {
             ],
           },
           {
-            prefCode: 2,
+            prefCode: 1,
+            prefName: '山形県',
             populations: [
               {
                 year: 2020,
@@ -156,19 +140,6 @@ describe('genSortedYears', () => {
         ],
       }
       expect(genYearsSortedInAsc(prefecturesPopulationData)).toEqual([1992, 2020, 2025, 2030])
-    })
-  })
-})
-
-describe('convertPrefCodeIntoPrefName', () => {
-  describe('prevCode が PrefecturesData に入っていること', () => {
-    it('都道府県名が返ってくること', () => {
-      expect(convertPrefCodeIntoPrefName(1, samplePrefecturesData)).toEqual('山形県')
-    })
-  })
-  describe('prevCode が PrefecturesData に入っていない', () => {
-    it('空文字列が返ってこないこと', () => {
-      expect(convertPrefCodeIntoPrefName(3, samplePrefecturesData)).toEqual('')
     })
   })
 })
