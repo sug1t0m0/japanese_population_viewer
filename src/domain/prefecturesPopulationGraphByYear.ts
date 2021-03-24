@@ -1,5 +1,4 @@
 import { PrefecturesPopulationData } from './prefecturesPopulation'
-import { PrefecturesData } from './prefecture'
 
 export type DataForPrefecturePopulationGraph = {
   year: number
@@ -51,9 +50,4 @@ export function genYearsSortedInAsc(prefecturesPopulationData: PrefecturesPopula
 
   const sortedYears = Array.from(new Set(allYears).values()).sort((a, b) => a - b)
   return sortedYears
-}
-
-export function convertPrefCodeIntoPrefName(prefCode: number, prefecturesData: PrefecturesData): string {
-  const targetData = prefecturesData.data.find((d) => d.prefCode === prefCode)
-  return targetData ? targetData.prefName : ''
 }

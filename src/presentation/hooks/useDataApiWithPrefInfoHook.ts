@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { convertPrefCodeIntoPrefName } from '../../domain/prefecturesPopulationGraphByYear'
-import { PrefecturesData } from '../../domain/prefecture'
+
+import { convertPrefCodeIntoPrefName, PrefecturesData } from '../../domain/prefecture'
 
 export type ApiDataWithPrefInfo<T> = {
   data: DataWithPrefInfo<T>[]
