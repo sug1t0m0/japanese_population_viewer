@@ -12,6 +12,10 @@ type Props = {
 
 export const PrefecturesPopulationGraphByYear = (props: Props) => {
   const [data, selectedPrefNames] = convertFromPrefecturesPopulationData(props)
+
+  // TODO グラフコンポーネントが増えるようなら, useContext で各コンポーネントに配りたい
+  const colors = ['#C55859', '#F08C57', '#F2DA48', '#48C176', '#4C9CD7', '#8A69B6']
+
   return (
     <>
       {props.selectedPrefCodeList.length === 0 && <p>人口を表示する県を選択してください</p>}
@@ -24,7 +28,7 @@ export const PrefecturesPopulationGraphByYear = (props: Props) => {
           <Tooltip />
           <Legend />
           {selectedPrefNames.map((selectedPrefName, i) => (
-            <Line key={i} dataKey={selectedPrefName} stroke="#8884d8" />
+            <Line key={i} dataKey={selectedPrefName} stroke={colors[i % colors.length]} />
           ))}
         </LineChart>
       )}
