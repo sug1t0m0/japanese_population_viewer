@@ -9,7 +9,7 @@ type Props = {
   selectedPrefCodeList: number[]
   prefecturesData: PrefecturesData
   prefecturesPopulationData: PrefecturesPopulationData
-  colors: string
+  colors: string[]
 }
 
 export const PrefecturesPopulationGraphByYear = (props: Props) => {

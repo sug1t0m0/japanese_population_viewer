@@ -1,6 +1,6 @@
-import { ApiDataWithPrefCode } from '../presentation/hooks/useDataApiWithPrefCodeHook'
+import { ApiDataWithPrefInfo } from '../presentation/hooks/useDataApiWithPrefInfoHook'
 
-export type PrefecturesPopulationData = ApiDataWithPrefCode<PrefecturesPopulation>
+export type PrefecturesPopulationData = ApiDataWithPrefInfo<PrefecturesPopulation>
 
 export type PrefecturesPopulation = {
   populations: Population[]

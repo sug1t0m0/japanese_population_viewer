@@ -8,7 +8,7 @@ import { fetchPrefectures } from '../../../infrastructure/fetchPrefectures'
 import { PrefecturesCheckboxList } from '../../components/prefecturesCheckboxList'
 import { PrefecturesPopulation } from '../../../domain/prefecturesPopulation'
 import { fetchPrefecturesPopulation } from '../../../infrastructure/fetchPrefecturesPopulation'
-import { useDataApiWithPrefCodeHook } from '../../hooks/useDataApiWithPrefCodeHook'
+import { useDataApiWithPrefInfoHook } from '../../hooks/useDataApiWithPrefInfoHook'
 import { PrefecturesPopulationGraphByYear } from '../../components/prefecturesPopulationGraphByYear'
 
 const PopulationGraphPage: React.FunctionComponent = () => {
@@ -16,9 +16,10 @@ const PopulationGraphPage: React.FunctionComponent = () => {
   const LINE_GRAPH_COLORS = ['#C55859', '#F08C57', '#F2DA48', '#48C176', '#4C9CD7', '#8A69B6']
 
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)
-  const [prefecturesPopulationData, setCurrentPrefCode] = useDataApiWithPrefCodeHook<PrefecturesPopulation>(
+  const [prefecturesPopulationData, setCurrentPrefCode] = useDataApiWithPrefInfoHook<PrefecturesPopulation>(
     [],
-    fetchPrefecturesPopulation
+    fetchPrefecturesPopulation,
+    prefecturesData
   )
   const [selectedPrefCodeList, setSelectedPrefCodeList] = useState<number[]>([])
 

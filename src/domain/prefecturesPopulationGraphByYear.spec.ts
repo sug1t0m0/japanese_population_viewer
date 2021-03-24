@@ -8,6 +8,7 @@ const samplePrefecturesPopulationData = {
   data: [
     {
       prefCode: 0,
+      prefName: '新潟県',
       populations: [
         {
           year: 2020,
@@ -25,6 +26,7 @@ const samplePrefecturesPopulationData = {
     },
     {
       prefCode: 1,
+      prefName: '山形県',
       populations: [
         {
           year: 2020,
@@ -64,7 +66,6 @@ const sampleSelectedPrefCodeList = [0, 1]
 
 const sampleParams = {
   prefecturesPopulationData: samplePrefecturesPopulationData,
-  prefecturesData: samplePrefecturesData,
   selectedPrefCodeList: sampleSelectedPrefCodeList,
 }
 
@@ -121,6 +122,7 @@ describe('genSortedYears', () => {
         data: [
           {
             prefCode: 0,
+            prefName: '新潟県',
             populations: [
               {
                 year: 1992,
@@ -137,7 +139,8 @@ describe('genSortedYears', () => {
             ],
           },
           {
-            prefCode: 2,
+            prefCode: 1,
+            prefName: '山形県',
             populations: [
               {
                 year: 2020,
