@@ -9,13 +9,11 @@ type Props = {
   selectedPrefCodeList: number[]
   prefecturesData: PrefecturesData
   prefecturesPopulationData: PrefecturesPopulationData
+  colors: string
 }
 
 export const PrefecturesPopulationGraphByYear = (props: Props) => {
   const [data, selectedPrefNames] = convertFromPrefecturesPopulationData(props)
-
-  // TODO グラフコンポーネントが増えるようなら, useContext で各コンポーネントに配りたい
-  const colors = ['#C55859', '#F08C57', '#F2DA48', '#48C176', '#4C9CD7', '#8A69B6']
 
   return (
     <UiStackWrapper
@@ -34,7 +32,7 @@ export const PrefecturesPopulationGraphByYear = (props: Props) => {
             <Tooltip />
             <Legend />
             {selectedPrefNames.map((selectedPrefName, i) => (
-              <Line key={i} dataKey={selectedPrefName} stroke={colors[i % colors.length]} />
+              <Line key={i} dataKey={selectedPrefName} stroke={props.colors[i % props.colors.length]} />
             ))}
           </LineChart>
         ),

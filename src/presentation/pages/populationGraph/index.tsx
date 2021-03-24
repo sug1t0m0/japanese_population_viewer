@@ -12,6 +12,9 @@ import { useDataApiWithPrefCodeHook } from '../../hooks/useDataApiWithPrefCodeHo
 import { PrefecturesPopulationGraphByYear } from '../../components/prefecturesPopulationGraphByYear'
 
 const PopulationGraphPage: React.FunctionComponent = () => {
+  // TODO グラフコンポーネントが増えるようなら, useContext で各コンポーネントに配りたい
+  const LINE_GRAPH_COLORS = ['#C55859', '#F08C57', '#F2DA48', '#48C176', '#4C9CD7', '#8A69B6']
+
   const [prefecturesData] = useDataApiHook<Prefecture[]>([], fetchPrefectures)
   const [prefecturesPopulationData, setCurrentPrefCode] = useDataApiWithPrefCodeHook<PrefecturesPopulation>(
     [],
@@ -24,8 +27,12 @@ const PopulationGraphPage: React.FunctionComponent = () => {
       setCurrentPrefCode(NaN)
       setSelectedPrefCodeList(selectedPrefCodeList.filter((pc) => pc !== prefCode))
     } else {
-      setCurrentPrefCode(prefCode)
-      setSelectedPrefCodeList(selectedPrefCodeList.concat(prefCode))
+      if (selectedPrefCodeList.length < LINE_GRAPH_COLORS.length) {
+        setCurrentPrefCode(prefCode)
+        setSelectedPrefCodeList(selectedPrefCodeList.concat(prefCode))
+      } else {
+        alert(`選択できる都道府県は${LINE_GRAPH_COLORS.length}件までです。`)
+      }
     }
   }
 
@@ -48,6 +55,7 @@ const PopulationGraphPage: React.FunctionComponent = () => {
               selectedPrefCodeList,
               prefecturesData,
               prefecturesPopulationData,
+              colors: LINE_GRAPH_COLORS,
             }}
           />
         </div>
